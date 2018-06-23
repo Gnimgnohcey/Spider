@@ -33,7 +33,7 @@ public class SpiderContext implements Context {
     private void proxy() {
         if (null != configuration) {
             List<String> proxies = configuration.proxies();
-            // 如果制定了 代理IP
+            // 如果指定了 代理IP
             if (proxies != null && proxies.size() > 0) {
                 int size = proxies.size();
                 String randomProxy = proxies.get((int) Math.floor(Math.random() * size));

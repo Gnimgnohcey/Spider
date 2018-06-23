@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 /**
  * @author 4everlynn
  * Create at 2018/6/8
+ * 实现了一个简单的正则过滤器，用户也可以自定义过滤器
  */
 public class SimpleFilter extends HashSet<String> implements SpiderFilter {
     @Override

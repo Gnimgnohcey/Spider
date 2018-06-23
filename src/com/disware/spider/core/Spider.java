@@ -19,6 +19,7 @@ import java.util.concurrent.Future;
 /**
  * @author 4everlynn
  * Create at 2018/6/7
+ * 爬虫引擎实现类
  */
 public class Spider implements SpiderEngine {
     private Configuration configuration;

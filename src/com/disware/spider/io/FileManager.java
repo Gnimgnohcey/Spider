@@ -7,6 +7,7 @@ import java.io.IOException;
 /**
  * @author 4everlynn
  * Create at 2018/6/22
+ * 输出日志文件的文件管理器
  */
 public class FileManager {
     public static void saveText(String url, String target) {

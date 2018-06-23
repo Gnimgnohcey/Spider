@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * @author 4everlynn
  * Create at 2018/6/9
+ * 文件下载器，用户可从上下文中取得
  */
 public class SpiderDownloader implements Downloader {
     private List<SpiderFilter> filters = new ArrayList<>();
