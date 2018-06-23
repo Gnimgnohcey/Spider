@@ -4,8 +4,8 @@ import com.disver.spider.api.core.SpiderConfiguration;
 import com.disver.spider.api.core.SpiderFilter;
 import com.disver.spider.api.data.SpiderConverter;
 import com.disver.spider.api.data.SpiderPipeline;
-import com.disver.spider.api.io.Downloader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,17 +14,46 @@ import java.util.List;
  * Create at 2018/6/7
  */
 public class Configuration implements SpiderConfiguration {
+    /**
+     * 数据转化器实例
+     */
     private SpiderConverter converter;
-    private List<String> proxy;
-    private List<SpiderFilter> filters;
-    private List<SpiderPipeline> pipelines;
-    private Integer interval;
-    private Downloader downloader;
+    /**
+     * 代理IP队列
+     */
+    private List<String> proxy = new ArrayList<>();
+    /**
+     * 过滤器队列
+     */
+    private List<SpiderFilter> filters = new ArrayList<>();
+    /**
+     * 数据管道队列
+     */
+    private List<SpiderPipeline> pipelines = new ArrayList<>();
+    /**
+     * 请求间隔
+     */
+    private Integer interval = 0;
+
+    private boolean isLog = false;
+
+    public Integer getInterval() {
+        return interval;
+    }
 
     @Override
-    public SpiderConfiguration pipeline(SpiderPipeline spiderPipeline) {
-        this.pipelines.add(spiderPipeline);
+    public SpiderConverter currentConverter() {
+        return converter;
+    }
+
+    @Override
+    public SpiderConfiguration pipeline(SpiderPipeline... spiderPipeline) {
+        this.pipelines.addAll(Arrays.asList(spiderPipeline));
         return this;
+    }
+
+    public List<SpiderPipeline> getPipelines() {
+        return pipelines;
     }
 
     @Override
@@ -40,15 +69,33 @@ public class Configuration implements SpiderConfiguration {
     }
 
     @Override
+    public List<String> proxies() {
+        return proxy;
+    }
+
+
+    @Override
     public SpiderConfiguration interval(Integer integer) {
         this.interval = integer;
         return this;
     }
 
+
+
     @Override
-    public SpiderConfiguration downloader(Downloader downloader) {
-        this.downloader = downloader;
+    public List<SpiderFilter> filters() {
+        return this.filters;
+    }
+
+    @Override
+    public SpiderConfiguration log(boolean log) {
+        this.isLog = log;
         return this;
+    }
+
+    @Override
+    public boolean isLog() {
+        return isLog;
     }
 
     @Override
