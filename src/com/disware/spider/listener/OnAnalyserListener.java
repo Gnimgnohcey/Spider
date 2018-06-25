@@ -11,6 +11,7 @@ import java.util.Map;
  * Create at 2018/6/22
  */
 public interface OnAnalyserListener<Target extends SpiderBean> {
-    List<String> preAnalyse(List<String> currentField);
+    List<String> preAnalyse(Context context, List<String> currentField);
+
     SpiderBean process(Context context, Target spiderBean, Map<String, List<String>> param, int index);
 }

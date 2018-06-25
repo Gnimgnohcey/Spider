@@ -13,7 +13,7 @@ public class FileManager {
     public static void saveText(String url, String target) {
         FileOutputStream stream = null;
         try {
-            File file = new File(url.substring(0, url.lastIndexOf("/")));
+            File file = new File(url.substring(0, url.lastIndexOf(File.separator)));
             if (!file.exists()) {
                 file.mkdirs();
             }
@@ -31,5 +31,4 @@ public class FileManager {
             }
         }
     }
-
 }

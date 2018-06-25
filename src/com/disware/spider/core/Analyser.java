@@ -12,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,11 +118,20 @@ public class Analyser implements Callable<SpiderBean> {
             System.err.println("Field " + declaredField.getName() + " find Text queryCss is '" + text.queryCss() + "'");
             dealText(text);
         }
+        RestSpider restSpider = declaredField.getDeclaredAnnotation(RestSpider.class);
+        // 如果当前字段需要请求接口获得数据
+        if (hasTarget(restSpider)) {
+            dealRestSpider(declaredField.getName());
+        }
         // 分析完毕开始注入数据
         onResult();
         // 每一轮结束后都进行一次清空
         clearElement();
         clearElements();
+    }
+
+    private void dealRestSpider(String name) {
+        params.computeIfAbsent(name, paramForField -> new ArrayList<>());
     }
 
 
@@ -316,7 +326,7 @@ public class Analyser implements Callable<SpiderBean> {
                 onAnalyserListener = onAnalyserListenerMap.get(currentField.getName());
             }
             if (onAnalyserListener != null) {
-                currentParams = onAnalyserListener.preAnalyse(currentParams);
+                currentParams = onAnalyserListener.preAnalyse(context, currentParams);
             }
             if (hasTarget(innerSpider)) {
                 SpiderBean spiderBean = innerSpider.value().newInstance();
