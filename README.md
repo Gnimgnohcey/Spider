@@ -13,10 +13,9 @@ Spider支持指定线程池大小，并且数据下载的过程是并发的。
 > ReticularSpiders是Spider从0.12版本后开始支持的，它使Spider Engine能够在多个线程中并发运行，由于Spider Engine本身就是多线程的，所以使用ReticularSpiders后Spider Engine内部的线程将会成为子线程
 > ![多线程爬虫架构图](http://www.diswares.com/多线程爬虫架构.png)
 ## 爬虫示例
-  - Hello Spider
-    - 配置 Spider
-      ```java
-        public class HelloSpider {
+### Hello Spider
+```java
+public class HelloSpider {
           public static void main(String[] args) {
               new Spider(new SpiderContext()
                       // target url
@@ -48,5 +47,42 @@ Spider支持指定线程池大小，并且数据下载的过程是并发的。
               );
             }
         }
-     ```
+```
   > 由上可见，高度可自定义的代价就是Spider的配置过程是一个比较复杂的过程，为了减少用户在配置上花费的时间，Spider提供了一套默认的配置，这套配置可以从SpiderFactory中获得
+ ### SpiderFactory
+ ```java
+  // 使用
+  Spider spider = SpiderFactory.defaultSpider("targetURL","logFilePath");
+  // 源代码
+  /**
+     * 为了节省用户配置的时间，提供一套约定俗成的配置
+     * 这个默认的爬虫配置了官方的数据流管道FilePipeline
+     *
+     * @param target 目标网址
+     * @param path   日志文件存放位置
+     * @return 默认配置的Spider
+     */
+    public static Spider defaultSpider(String target, String path) {
+        return new Spider(new SpiderContext()
+                .target(target)
+                .downloader(new SpiderDownloader())
+                .header(new SpiderHeader().include("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) " +
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36")
+                        .include("Content-Type", "text/html"))
+                .configuration(new Configuration()
+                        .pipeline(new FilePipeline(path))
+                        .interval(100))
+                .connect())
+                .pool(10);
+    }
+ ```
+## 注解
+|名称|作用|作用类型|
+|:-:|:-:|:-:|
+|Node|根据DOM的ID或CLASS指定爬取目标的区域|类或字段|
+|Tag|根据HTML标签寻找目标集合|字段|
+|Attribute|根据DOM所拥有的属性寻找目标集合|字段|
+|Value|取出Attribute的值形成一个集合，该注解需要和Attribute配合使用|字段|
+|Text|使用CSS选择器取出DOM的文本内容|字段|
+|InnerSpider|InnerSpider是Analyser的子线程，可以十分方便进行双层爬虫|字段|
+|RestSpider|标示当前字段需要请求REST接口，Spider引擎无需对此字段处理，由用户处理|字段|
