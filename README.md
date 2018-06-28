@@ -86,3 +86,44 @@ public class HelloSpider {
 |Text|使用CSS选择器取出DOM的文本内容|字段|
 |InnerSpider|InnerSpider是Analyser的子线程，可以十分方便进行双层爬虫|字段|
 |RestSpider|标示当前字段需要请求REST接口，Spider引擎无需对此字段处理，由用户处理|字段|
+## 使用注解编写SpiderBean
+> 假设现在有这样一段HTML
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <title>Spider Learn</title>
+  </head>
+  <body>
+    <div id="text-main">
+      <p>Spider Engine</p>
+    </div>
+  </body>
+</html>
+```
+> 现在编写SpiderBean获取id为text-main下所有p标签的文本
+
+```java
+@Node(id = "text-main")
+public class MySpiderBean implements SpiderBean {
+    // Spider Bean 内所有的字段都是 List<String>
+    @Text(queryCss = "p")
+    private List<String> text;
+    
+    @Override
+    public boolean asynchronous() {
+        return false;
+    }
+
+    @Override
+    public String token() {
+        return "输出文件名";
+    }
+}
+```
+> 接下来使用刚刚配置的Spider示例进行分析SpiderBean即可获取结果
+```java
+SpiderData data = spider.analyse(new MySpiderBean());
+```
+> 最终拿到的SpiderData中就保存了结果数据，如果设置了Converter结果会被转化成Converter对应数据类型
