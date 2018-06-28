@@ -99,6 +99,24 @@ public class HelloSpider {
     <div id="text-main">
       <p>Spider Engine</p>
     </div>
+    <div class="inner">
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+    </div>
+          
+    <div class="inner">
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+          <li><a herf="target"></a></li>
+    </div>     
+     <h3>Learn Spider</h3>
   </body>
 </html>
 ```
@@ -110,6 +128,15 @@ public class MySpiderBean implements SpiderBean {
     // Spider Bean 内所有的字段都是 List<String>
     @Text(queryCss = "p")
     private List<String> text;
+    
+    @Node(className="inner")
+    @Attribute("href")
+    @Value
+    private List<String> urls;
+    
+    @Tag("h3")
+    @Text(queryCss="h3")
+    private List<String> title;
     
     @Override
     public boolean asynchronous() {
