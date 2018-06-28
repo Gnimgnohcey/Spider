@@ -48,7 +48,7 @@ public class HelloSpider {
             }
         }
 ```
-  > 由上可见，高度可自定义的代价就是Spider的配置过程是一个比较复杂的过程，为了减少用户在配置上花费的时间，Spider提供了一套默认的配置，这套配置可以从SpiderFactory中获得
+  > 由上可见，高度可自定义的代价就是Spider的配置是一个比较复杂的过程，为了减少用户在配置上花费的时间，Spider提供了一套默认的配置，这套配置可以从SpiderFactory中获得
  ### SpiderFactory
  ```java
   // 使用
