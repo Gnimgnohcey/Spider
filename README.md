@@ -5,4 +5,5 @@
 Spider支持指定线程池大小，并且数据下载的过程是并发的。
 
 - [Java Doc API ](http://www.diswares.com/spider-api)
-> ![avatar](http://www.diswares.com/Spider架构.jpg)
+> ![架构图](http://www.diswares.com/Spider架构.jpg)
+> ![多线程爬虫架构图](http://www.diswares.com/多线程爬虫架构.png)
