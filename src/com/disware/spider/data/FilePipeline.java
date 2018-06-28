@@ -1,5 +1,6 @@
 package com.disware.spider.data;
 
+import com.disver.spider.api.core.Context;
 import com.disver.spider.api.core.SpiderBean;
 import com.disver.spider.api.core.SpiderFilter;
 import com.disver.spider.api.data.SpiderPipeline;
@@ -12,6 +13,8 @@ import java.util.List;
 /**
  * @author 4everlynn
  * Create at 2018/6/21
+ * 官方数据管道
+ * 用于输出日志文件
  */
 public class FilePipeline implements SpiderPipeline {
     private String url;
@@ -22,12 +25,12 @@ public class FilePipeline implements SpiderPipeline {
 
 
     @Override
-    public SpiderBean preDeal(SpiderBean bean) {
+    public SpiderBean preDeal(Context context, SpiderBean bean) {
         return bean;
     }
 
     @Override
-    public SpiderPipeline assemblyLine(SpiderBean bean) {
+    public SpiderPipeline assemblyLine(Context context, SpiderBean bean) {
         System.err.println(getClass().getName() + " start working");
         StringBuilder builder = new StringBuilder();
         Field[] declaredFields = bean.getClass().getDeclaredFields();

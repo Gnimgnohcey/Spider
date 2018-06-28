@@ -123,13 +123,13 @@ public class Spider implements SpiderEngine {
                 if (null != filters && filters.length > 0) {
                     for (SpiderFilter filter : filters) {
                         if (filter.filter(spiderBean)) {
-                            spiderBean = pipeline.preDeal(spiderBean);
-                            pipeline.assemblyLine(spiderBean);
+                            spiderBean = pipeline.preDeal(context, spiderBean);
+                            pipeline.assemblyLine(context, spiderBean);
                         }
                     }
                 } else {
-                    spiderBean = pipeline.preDeal(spiderBean);
-                    pipeline.assemblyLine(spiderBean);
+                    spiderBean = pipeline.preDeal(context, spiderBean);
+                    pipeline.assemblyLine(context, spiderBean);
                 }
             }
         }

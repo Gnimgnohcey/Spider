@@ -26,6 +26,12 @@ public class SpiderDownloader implements Downloader {
     private Integer interval = 0;
 
 
+    /**
+     * 放置路径
+     *
+     * @param path 路径
+     * @return 当前类
+     */
     @Override
     public Downloader to(String path) {
         this.path = path;
@@ -33,18 +39,31 @@ public class SpiderDownloader implements Downloader {
     }
 
 
+    /**
+     * 输出文件名
+     *
+     * @param token 文件名
+     * @return 当前类
+     */
     @Override
     public Downloader token(String token) {
         this.token = token;
         return this;
     }
 
+    /**
+     * @param target 目标文件
+     * @return 当前类
+     */
     @Override
     public Downloader put(String target) {
         this.target = target;
         return this;
     }
 
+    /**
+     * 开始下载
+     */
     @Override
     public void start() {
         pause(interval);
@@ -106,12 +125,24 @@ public class SpiderDownloader implements Downloader {
     }
 
 
+    /**
+     * 下载时间间隔
+     *
+     * @param integer 时间间隔
+     * @return 当前类
+     */
     @Override
     public Downloader interval(Integer integer) {
         this.interval = integer;
         return this;
     }
 
+    /**
+     * 设置下载时所带的浏览器头
+     *
+     * @param map 浏览器头Map
+     * @return 当前类
+     */
     @Override
     public Downloader headers(Map<String, String> map) {
         for (String key : map.keySet()) {

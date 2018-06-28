@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * @author 4everlynn
  * Create at 2018/6/24
+ * 适配器避免不必要的代码
  */
 public class OnAnalyserAdapter<T extends SpiderBean> implements OnAnalyserListener<T> {
     @Override

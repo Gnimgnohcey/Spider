@@ -10,6 +10,12 @@ import java.io.IOException;
  * 输出日志文件的文件管理器
  */
 public class FileManager {
+    /**
+     * 保存文本
+     *
+     * @param url    存储路径
+     * @param target 目标文件
+     */
     public static void saveText(String url, String target) {
         FileOutputStream stream = null;
         try {

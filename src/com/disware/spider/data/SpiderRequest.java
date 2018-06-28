@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * @author 4everlynn
  * Create at 2018/6/23
+ * 接口请求类
  */
 public class SpiderRequest {
     public static Map<String, String> header = new SpiderHeader();
@@ -17,16 +18,34 @@ public class SpiderRequest {
     private SpiderRequest() {
     }
 
+    /**
+     * 从上下文中创建出请求类
+     *
+     * @param context 上下文
+     * @return 新的请求类
+     */
     public static SpiderRequest fromContext(Context context) {
         header = context.customHeaders();
         return new SpiderRequest().headers(header);
     }
 
+    /**
+     * 请求时所需要带的头
+     *
+     * @param header 请求头Map
+     * @return 当前类
+     */
     private SpiderRequest headers(Map<String, String> header) {
         SpiderRequest.header = header;
         return this;
     }
 
+    /**
+     * 发起GET请求
+     *
+     * @param target 目标接口
+     * @return 结果
+     */
     public String get(String target) {
         try {
             return Jsoup.connect(target)
@@ -41,10 +60,23 @@ public class SpiderRequest {
         return null;
     }
 
+    /**
+     * 发起不带参数的POST请求
+     *
+     * @param target 目标接口
+     * @return 结果
+     */
     public String post(String target) {
         return post(target, null);
     }
 
+    /**
+     * 发起带RequestBody的POST请求
+     *
+     * @param target 目标接口
+     * @param data   RequestBody
+     * @return 结果
+     */
     public String post(String target, RequestData data) {
         try {
             return Jsoup.connect(target)
